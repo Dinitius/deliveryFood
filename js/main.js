@@ -29,7 +29,7 @@ let login = localStorage.getItem('userData');
 let cart = [];
 
 const getData = async function(url) {
-  const response = await fetch(url);   
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response.status}!`)
   }
@@ -113,7 +113,7 @@ function createCardRestaurant({ image, kitchen, name,
    price, stars, products,
    time_of_delivery: timeOfDelivery }) {
 
-  const card = `<a class="card card-restaurant" 
+  const card = `<a class="card card-restaurant"
   data-products="${products}"
   data-info="${[name, price, stars, kitchen]}">
   <img src="${image}" alt="image" class="card-image"/>
@@ -137,7 +137,7 @@ function createCardRestaurant({ image, kitchen, name,
 
 };
 
-function createCardGood({ description, image, name, price, id }) { 
+function createCardGood({ description, image, name, price, id }) {
 
   const card = document.createElement('div');
   card.className = 'card';
@@ -161,7 +161,7 @@ function createCardGood({ description, image, name, price, id }) {
       </div>
   `);
   cardsMenu.insertAdjacentElement('beforeend', card);
-  
+
 };
 
 function openGoods(event) {
@@ -169,7 +169,7 @@ function openGoods(event) {
   const restaurant = target.closest('.card-restaurant');
   console.log(restaurant);
   if (!login) {
-    toggleModalAuth()
+    toggleModalAuth();
   } else {
 
   if (restaurant) {
@@ -185,9 +185,9 @@ function openGoods(event) {
     rating.textContent = stars;
     minPrice.textContent = `От ${price} ₽`;
     category.textContent = kitchen;
-  
 
-    getData(`./db/${restaurant.dataset.products}`).then(function (data) {   
+
+    getData(`./db/${restaurant.dataset.products}`).then(function (data) {
       data.forEach(createCardGood);
     });
 
@@ -217,7 +217,7 @@ function addToCart(event) {
         cost,
         count: 1
       });
-    }; 
+    };
     getCartData();
   };
 };
@@ -254,7 +254,7 @@ function changeCount(event) {
       const food = cart.find(function(item) {
         return item.id === target.dataset.id;
       });
-       
+
       if (target.classList.contains('counter-minus')) {
         food.count--;
         if (food.count === 0) {
@@ -263,12 +263,12 @@ function changeCount(event) {
       }
       if (target.classList.contains('counter-plus')) food.count++;
       renderCart();
-      getCartData();      
+      getCartData();
     };
 };
 
 function init() {
-  getData('../db/partners.json').then(function (data) {
+  getData('./db/partners.json').then(function (data) {
     data.forEach(createCardRestaurant);
 });
 
